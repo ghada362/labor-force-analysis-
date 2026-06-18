@@ -77,10 +77,8 @@ CAPMAS 2024 Survey  →  Data Cleaning  →  ERD & SQL Modeling  →  Data Wareh
 ├── data-warehouse/       # Star schema, stored procedures, ETL scripts
 ├── ssrs-reports/         # SSRS report definitions (.rdl)
 ├── power-bi/             # Power BI dashboards (.pbix)
-├── tableau/              # Tableau workbooks (.twbx)
-├── rag-system/           # n8n workflows, Docker config, backend code
-├── power-apps/           # Power Apps form definition
-└── website/              # Public-facing web portal
+
+
 ```
 
 ## 👥 Team
@@ -89,4 +87,4 @@ This is a graduation project built by a 5-member team, with dashboards distribut
 
 ## 📄 License
 
-This project was developed for academic purposes as part of a professional master's program in data analytics.
+This project was developed for academic purposes as part of a professional ITI program in POWER BI DEVELOPMENT .
