@@ -89,8 +89,8 @@ Results: 0 duplicate records, 100% upsert accuracy, fully automated pipeline
 
 ```
 ├── data-cleaning/        # Python & Excel cleaning scripts
-├── database/             # ERD, SQL Server schema, Red Gate scripts
-├── data-warehouse/       # Star schema, stored procedures, ETL scripts
+├── database/             # ERD, SQL Server schema, Red Gate scripts,stored procedures
+├── data-warehouse/       # Star schema
 ├── ssrs-reports/         # SSRS report definitions (.rdl)
 ├── power-bi/             # Power BI dashboards (.pbix)
 
