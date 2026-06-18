@@ -36,13 +36,29 @@ CAPMAS 2024 Survey  →  Data Cleaning  →  ERD & SQL Modeling  →  Data Wareh
 - **Modeling:** ERD design + relational modeling in SQL Server using Red Gate tools
 
 ### Data Warehouse
-- **Star Schema Design:** `Fact_Individual_Survey` at the center, surrounded by dimension tables (`Dim_Location`, `Dim_Date`, etc.) with surrogate keys
-- **Staging Layer:** handles data isolation, transformation, and error handling before loading
-- **51 Stored Procedures** supporting:
-  - CRUD operations for all core entities and dimensions
-  - Analytical procedures for labor market, employment, education, and salary analysis
-  - Parameterized procedures for dynamic Power BI reporting
-- **Key design principle:** all reporting measures use `SUMX` with `Quarterly_Weight` or `Annual_Weight` — never raw row counts — to produce accurate population-level estimates
+Built in three stages:
+
+**Stage 1** — Staging Area + Full Load
+
+
+OLTP Source → Staging Area → Transform & Clean → DWH Target
+Data isolation (DWH never reads directly from OLTP), transformation, and error handling before loading
+One-time full load: 296K records across 12 source tables
+
+
+**Stage 2** — Audit Columns + Incremental Load
+
+
+Audit columns (CreatedDate, ModifiedDate, Last_Load_Date) added to every staging table
+Incremental load fetches only new rows (WHERE CreatedDate > Last_Load_Date) instead of reloading everything
+7 stored procedures: incremental staging (SP 1–4), Dim_Location load via NOT EXISTS (SP 5), MERGE on the fact table (SP 6), and ETL control updates (SP 7)
+
+
+**Stage 3**— Automation via SQL Server Agent
+
+
+The full 4-step pipeline (incremental staging → dimension load → fact MERGE → control update) runs automatically on a schedule
+Results: 0 duplicate records, 100% upsert accuracy, fully automated pipeline
 
 ### ETL Strategy
 - **Incremental Load:** `CreatedDate` audit columns + `ETL_Control` table to track load batches
